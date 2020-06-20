@@ -1,0 +1,56 @@
+{{define "home/new.tpl"}}
+{{template "layout/header.tpl"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Gin Demo With Bootstrap and Vue</h1>
+                <p>Hello, {{ .name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="app">
+                    <div>
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" v-model="article.title">
+                        </div>
+                        <div class="form-group">
+                            <label for="post">Post:</label>
+                            <input type="text" class="form-control" id="post" v-model="article.post">
+                        </div>
+                        <button class="btn btn-primary" v-on:click="add_article">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            delimiters: ["[[", "]]"],
+            data: {
+                url: "/newsfeed",
+                article: {
+                    title: '',
+                    post: ''
+                },
+            },
+            methods: {
+                add_article: function() {
+                    fetch(this.url, {
+                        method: "POST",
+                        headers: { "content-type": "application/json"},
+                        body: JSON.stringify({
+                            title: this.article.title,
+                            post: this.article.post
+                        })
+                    }).then(function(res) {
+                        window.location = "/";
+                    });
+                }
+            }
+        });
+    </script>
+{{template "layout/footer.tpl"}}
+{{end}}
