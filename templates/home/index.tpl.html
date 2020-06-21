@@ -9,41 +9,9 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div id="app">
-                    <div v-for="r, i in result" v-bind:key="i">
-                        <h4>[[ r.title ]]</h4>
-                        <p>[[ r.post ]]</p>
-                    </div>
-                </div>
-                <a class="btn btn-primary" href="/new">New</a>
+                <a href="/books">Books</a>
             </div>
         </div>
     </div>
-    <script>
-        var app = new Vue({
-            el: "#app",
-            delimiters: ["[[", "]]"],
-            data: {
-                url: "/newsfeed",
-                result: [],
-                article: {
-                    title: '',
-                    post: ''
-                },
-                message: "Hello"
-            },
-            mounted: function() {
-                this.fetch_articles();
-            },
-            methods: {
-                fetch_articles: function() {
-                    var that = this;
-                    fetch(this.url)
-                    .then(r => r.json())
-                    .then(d => that.result = d['result']);
-                }
-            }
-        });
-    </script>
 {{template "layout/footer.tpl"}}
 {{end}}
