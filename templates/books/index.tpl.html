@@ -10,9 +10,9 @@
         <div class="row">
             <div class="col-12">
                 <div id="app">
-                    <div v-for="r, i in books" v-bind:key="i">
-                        <h4>[[ r.title ]]</h4>
-                        <p>[[ r.author ]]</p>
+                    <div v-for="b in books" v-bind:key="b.id">
+                        <h4 v-bind:id="b.id" v-on:click="show_book">[[ b.title ]]</h4>
+                        <p>[[ b.author ]]</p>
                     </div>
                 </div>
                 <a class="btn btn-primary" href="/books/new">New</a>
@@ -36,6 +36,9 @@
                     fetch(this.url)
                     .then(r => r.json())
                     .then(d => that.books = d['data']);
+                },
+                show_book: function(e) {
+                    window.location = "/books/show/" + e.target.id;
                 }
             }
         });

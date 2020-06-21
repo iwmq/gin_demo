@@ -62,3 +62,21 @@ func BookNew() gin.HandlerFunc {
 		})
 	}
 }
+
+// BookShow ...
+func BookShow() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var book models.Book
+
+		id := c.Param("id")
+
+		if err := models.DB.Where("id = ?", id).First(&book).Error; err != nil {
+			// Error
+		}
+
+		c.HTML(200, "books/show.tpl", gin.H{
+			"name": "Jay Wang",
+			"data": book,
+		})
+	}
+}
