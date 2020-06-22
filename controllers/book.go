@@ -9,8 +9,14 @@ import (
 
 // CreateBookInput ...
 type CreateBookInput struct {
-	Title string `json:"title" binding:"required"`
-	Autor string `json:"author" binding:"required"`
+	Title  string `json:"title" binding:"required"`
+	Author string `json:"author" binding:"required"`
+}
+
+// UpdateBookInput ...
+type UpdateBookInput struct {
+	Title  string `json:"title" binding:"required"`
+	Author string `json:"author" binding:"required"`
 }
 
 // GetAllAPI ...
@@ -37,8 +43,39 @@ func CreateBookAPI() gin.HandlerFunc {
 		}
 
 		// Create book
-		book := models.Book{Title: input.Title, Author: input.Autor}
+		book := models.Book{Title: input.Title, Author: input.Author}
 		models.DB.Create(&book)
+		c.JSON(http.StatusOK, gin.H{
+			"data": book,
+		})
+	}
+}
+
+// UpdateBookAPI ...
+func UpdateBookAPI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+
+		// Get book if exists
+		var book models.Book
+		if err := models.DB.Where("id = ?", id).First(&book).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Record not found!",
+			})
+			return
+		}
+
+		// Validate input
+		var input UpdateBookInput
+		if err := c.ShouldBindJSON(&input); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Update book
+		models.DB.Model(&book).Update(input)
 		c.JSON(http.StatusOK, gin.H{
 			"data": book,
 		})
@@ -75,6 +112,24 @@ func BookShow() gin.HandlerFunc {
 		}
 
 		c.HTML(200, "books/show.tpl", gin.H{
+			"name": "Jay Wang",
+			"data": book,
+		})
+	}
+}
+
+// BookEdit ...
+func BookEdit() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var book models.Book
+
+		id := c.Param("id")
+
+		if err := models.DB.Where("id = ?", id).First(&book).Error; err != nil {
+			// Error
+		}
+
+		c.HTML(200, "books/edit.tpl", gin.H{
 			"name": "Jay Wang",
 			"data": book,
 		})

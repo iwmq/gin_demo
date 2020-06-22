@@ -23,8 +23,10 @@ func main() {
 		books.GET("/", controllers.BookList())
 		books.GET("/new", controllers.BookNew())
 		books.GET("/show/:id", controllers.BookShow())
+		books.GET("/edit/:id", controllers.BookEdit())
 		books.GET("/api", controllers.GetAllAPI())
 		books.POST("/api", controllers.CreateBookAPI())
+		books.POST("/api/:id/update", controllers.UpdateBookAPI())
 	}
 
 	r.Run()

@@ -1,0 +1,54 @@
+{{define "books/edit.tpl"}}
+{{template "layout/header.tpl"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Gin Demo With Bootstrap and Vue</h1>
+                <p>Hello, {{ .name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="app">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" id="title" v-model="book.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author:</label>
+                        <input type="text" class="form-control" id="author" v-model="book.author">
+                    </div>
+                    <button class="btn btn-primary" v-on:click="update_book">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            delimiters: ["[[", "]]"],
+            data: {
+                url: "/books/api/{{ .data.ID }}/update",
+                book: {
+                    title: {{ .data.Title }},
+                    author: {{ .data.Author }}
+                },
+            },
+            methods: {
+                update_book: function() {
+                    fetch(this.url, {
+                        method: "POST",
+                        headers: { "content-type": "application/json"},
+                        body: JSON.stringify({
+                            title: this.book.title,
+                            author: this.book.author
+                        })
+                    }).then(function(res) {
+                        window.location = "/books/";
+                    });
+                }
+            }
+        });
+    </script>
+{{template "layout/footer.tpl"}}
+{{end}}
