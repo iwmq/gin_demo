@@ -26,7 +26,8 @@ func main() {
 		books.GET("/edit/:id", controllers.BookEdit())
 		books.GET("/api", controllers.GetAllAPI())
 		books.POST("/api", controllers.CreateBookAPI())
-		books.POST("/api/:id/update", controllers.UpdateBookAPI())
+		books.PATCH("/api/:id", controllers.UpdateBookAPI())
+		books.DELETE("/api/:id", controllers.DeleteBookAPI())
 	}
 
 	r.Run()

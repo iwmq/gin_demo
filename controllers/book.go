@@ -82,6 +82,28 @@ func UpdateBookAPI() gin.HandlerFunc {
 	}
 }
 
+// DeleteBookAPI ...
+func DeleteBookAPI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+
+		// Get book if exists
+		var book models.Book
+		if err := models.DB.Where("id = ?", id).First(&book).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Record not found!",
+			})
+			return
+		}
+
+		// Delete book
+		models.DB.Delete(&book)
+		c.JSON(http.StatusOK, gin.H{
+			"data": true,
+		})
+	}
+}
+
 // BookList ...
 func BookList() gin.HandlerFunc {
 	return func(c *gin.Context) {

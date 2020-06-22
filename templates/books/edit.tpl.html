@@ -18,7 +18,8 @@
                         <label for="author">Author:</label>
                         <input type="text" class="form-control" id="author" v-model="book.author">
                     </div>
-                    <button class="btn btn-primary" v-on:click="update_book">Submit</button>
+                    <button class="btn btn-primary" v-on:click="update_book">Update</button>
+                    <button class="btn btn-danger" v-on:click="delete_book">Delete</button>
                 </div>
             </div>
         </div>
@@ -28,7 +29,7 @@
             el: "#app",
             delimiters: ["[[", "]]"],
             data: {
-                url: "/books/api/{{ .data.ID }}/update",
+                url: "/books/api/{{ .data.ID }}",
                 book: {
                     title: {{ .data.Title }},
                     author: {{ .data.Author }}
@@ -37,12 +38,20 @@
             methods: {
                 update_book: function() {
                     fetch(this.url, {
-                        method: "POST",
+                        method: "PATCH",
                         headers: { "content-type": "application/json"},
                         body: JSON.stringify({
                             title: this.book.title,
                             author: this.book.author
                         })
+                    }).then(function(res) {
+                        window.location = "/books/";
+                    });
+                },
+                delete_book: function() {
+                    fetch(this.url, {
+                        method: "DELETE",
+                        headers: { "content-type": "application/json"}
                     }).then(function(res) {
                         window.location = "/books/";
                     });
