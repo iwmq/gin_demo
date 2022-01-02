@@ -19,22 +19,25 @@
                             <label for="author">Author:</label>
                             <input type="text" class="form-control" id="author" v-model="book.author">
                         </div>
-                        <button class="btn btn-primary" v-on:click="add_book">Submit</button>
+                        <div class="mt-1">
+                            <button class="btn btn-primary" v-on:click="add_book">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        var app = new Vue({
-            el: "#app",
+        Vue.createApp({
             delimiters: ["[[", "]]"],
-            data: {
-                url: "/books/api",
-                book: {
-                    title: '',
-                    author: ''
-                },
+            data() {
+                return {
+                    url: "/books/api",
+                    book: {
+                        title: '',
+                        author: ''
+                    }
+                }
             },
             methods: {
                 add_book: function() {
@@ -50,7 +53,7 @@
                     });
                 }
             }
-        });
+        }).mount("#app");
     </script>
 {{template "layout/footer.tpl"}}
 {{end}}

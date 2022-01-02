@@ -15,17 +15,20 @@
                         <p>[[ b.author ]]</p>
                     </div>
                 </div>
-                <a class="btn btn-primary" href="/books/new">New</a>
+                <div class="mt-1">
+                    <a class="btn btn-primary" href="/books/new">New</a>
+                </div>
             </div>
         </div>
     </div>
     <script>
-        var app = new Vue({
-            el: "#app",
+        const app = Vue.createApp({
             delimiters: ["[[", "]]"],
-            data: {
-                url: "/books/api",
-                books: [],
+            data() {
+                return {
+                    url: "/books/api",
+                    books: [],
+                };
             },
             mounted: function() {
                 this.fetch_books();
@@ -41,7 +44,7 @@
                     window.location = "/books/show/" + e.target.id;
                 }
             }
-        });
+        }).mount("#app");
     </script>
 {{template "layout/footer.tpl"}}
 {{end}}

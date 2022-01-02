@@ -18,22 +18,25 @@
                         <label for="author">Author:</label>
                         <input type="text" class="form-control" id="author" v-model="book.author">
                     </div>
-                    <button class="btn btn-primary" v-on:click="update_book">Update</button>
-                    <button class="btn btn-danger" v-on:click="delete_book">Delete</button>
+                    <div class="mt-1">
+                        <button class="btn btn-primary me-1" v-on:click="update_book">Update</button>
+                        <button class="btn btn-danger" v-on:click="delete_book">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        var app = new Vue({
-            el: "#app",
+        Vue.createApp({
             delimiters: ["[[", "]]"],
-            data: {
-                url: "/books/api/{{ .data.ID }}",
-                book: {
-                    title: {{ .data.Title }},
-                    author: {{ .data.Author }}
-                },
+            data() {
+                return {
+                    url: "/books/api/{{ .data.ID }}",
+                    book: {
+                        title: {{ .data.Title }},
+                        author: {{ .data.Author }}
+                    }
+                };
             },
             methods: {
                 update_book: function() {
@@ -57,7 +60,7 @@
                     });
                 }
             }
-        });
+        }).mount("#app");
     </script>
 {{template "layout/footer.tpl"}}
 {{end}}
