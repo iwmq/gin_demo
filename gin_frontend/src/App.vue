@@ -3,7 +3,11 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <HelloWorld msg="Gin + Vite + Vue" />
+  <div class="w-[80vh] mx-auto my-8">
+    <h1 class="text-5xl text-bold">
+      Gin Demo
+    </h1>
+  </div>
 </template>
 
 <style scoped>
