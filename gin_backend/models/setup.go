@@ -1,6 +1,8 @@
 package models
 
 import (
+	"os"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -9,7 +11,8 @@ var DB *gorm.DB
 
 // ConnectDatabase ...
 func ConnectDatabase() {
-	database, err := gorm.Open("mysql", "jay:jay123@(localhost:3306)/gin")
+	gin_mysql_dsn := os.Getenv("GIN_MYSQL_DSN")
+	database, err := gorm.Open("mysql", gin_mysql_dsn)
 	if err != nil {
 		panic("Failed to connect to the database.")
 	}
