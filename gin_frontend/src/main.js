@@ -1,0 +1,8 @@
+import 'vite/modulepreload-polyfill'
+
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
+import router from "./route.js"
+
+createApp(App).use(router).mount('#app')

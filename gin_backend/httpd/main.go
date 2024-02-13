@@ -6,9 +6,17 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load environment variables from .env
+	// NOTE: .env must be put in the directory where we invoke the executable
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
+
 	models.ConnectDatabase()
 
 	r := gin.Default()
@@ -26,6 +34,7 @@ func main() {
 		books.GET("/edit/:id", controllers.BookEdit())
 		books.GET("/api", controllers.GetAllAPI())
 		books.POST("/api", controllers.CreateBookAPI())
+		books.GET("/api/:id", controllers.DetailBookAPI())
 		books.PATCH("/api/:id", controllers.UpdateBookAPI())
 		books.DELETE("/api/:id", controllers.DeleteBookAPI())
 	}
