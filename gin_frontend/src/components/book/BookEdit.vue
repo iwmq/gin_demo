@@ -23,11 +23,17 @@
             />
         </label>
         <button
-            class="btn btn-primary w-full max-w-xs"
+            class="btn btn-warning w-full max-w-xs"
             :disabled="!data_valid"
-            @click="create_book"
+            @click="update_book"
         >
-            Create
+            Update
+        </button>
+        <button
+            class="btn btn-error w-full max-w-xs"
+            @click="delete_book"
+        >
+            Delete
         </button>
         <router-link
             class="btn btn-neutral w-full max-w-xs"
@@ -39,12 +45,13 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 import { BOOK_API } from '@/composables/constants'
 
 const router = useRouter()
+const route = useRoute()
 
 
 const book_data = reactive({
@@ -56,18 +63,50 @@ const data_valid = computed(() => {
     return book_data.title.trim() !== '' && book_data.author.trim() !== '';
 })
 
-const create_book = () => {
-    fetch(BOOK_API, {
-        method: "POST",
+const url = ref("")
+const set_url = () => {
+    url.value = `${BOOK_API}/${route.params.id}`
+}
+
+const get_detail = async () => {
+    fetch(url.value)
+    .then(res => res.json())
+    .then(data => {
+        book_data.title = data.data.title
+        book_data.author = data.data.author
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+const update_book = async () => {
+    fetch(url.value, {
+        method: "PATCH",
         headers: { "content-type": "application/json"},
         body: JSON.stringify({
             title: book_data.title,
             author: book_data.author
         })
-    }).then(res => {
+    }).then(function(res) {
         router.push({name: "book_home"})
     }).catch(err => {
         console.log(err)
     })
 }
+
+const delete_book = async () => {
+    fetch(url.value, {
+        method: "DELETE",
+        headers: { "content-type": "application/json"}
+    }).then(function(res) {
+        router.push({name: "book_home"})
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+onMounted(async () => {
+    set_url()
+    await get_detail()
+})
 </script>

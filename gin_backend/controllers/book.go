@@ -51,6 +51,23 @@ func CreateBookAPI() gin.HandlerFunc {
 	}
 }
 
+// DetailBookAPI ...
+func DetailBookAPI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var book models.Book
+
+		id := c.Param("id")
+
+		if err := models.DB.Where("id = ?", id).First(&book).Error; err != nil {
+			// Error
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"data": book,
+		})
+	}
+}
+
 // UpdateBookAPI ...
 func UpdateBookAPI() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -122,6 +139,7 @@ func BookNew() gin.HandlerFunc {
 	}
 }
 
+
 // BookShow ...
 func BookShow() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -139,6 +157,7 @@ func BookShow() gin.HandlerFunc {
 		})
 	}
 }
+
 
 // BookEdit ...
 func BookEdit() gin.HandlerFunc {

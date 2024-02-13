@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="table w-full max-w-xs">
+        <table class="table w-full max-w-xl">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -12,20 +12,34 @@
                 <tr v-for="b in books">
                     <td>{{ b.title }}</td>
                     <td>{{ b.author }}</td>
-                    <td></td>
+                    <td>
+                        <router-link
+                            class="btn btn-sm btn-warning"
+                            :to="{name: 'book_edit', params: {id: b.id}}"
+                        >
+                            Edit
+                        </router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <router-link to="/book_create" class="btn btn-link">
-        New
-    </router-link>
+
+    <div class="mt-8">
+        <router-link
+            to="/book_create"
+            class="btn btn-primary"
+        >
+            New
+        </router-link>
+    </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const BOOK_API = "/books/api"
+import { BOOK_API } from '@/composables/constants'
+
 
 const books = ref([])
 

@@ -34,6 +34,7 @@ func main() {
 		books.GET("/edit/:id", controllers.BookEdit())
 		books.GET("/api", controllers.GetAllAPI())
 		books.POST("/api", controllers.CreateBookAPI())
+		books.GET("/api/:id", controllers.DetailBookAPI())
 		books.PATCH("/api/:id", controllers.UpdateBookAPI())
 		books.DELETE("/api/:id", controllers.DeleteBookAPI())
 	}
