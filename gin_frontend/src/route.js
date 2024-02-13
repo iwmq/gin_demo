@@ -5,11 +5,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 import AppHome from "./components/AppHome.vue"
 import HelloWorld from "./components/HelloWorld.vue"
-
+import BookIndex from "./components/book/BookIndex.vue"
+import BookCreate from "./components/book/BookCreate.vue"
 
 const routes = [
   { path: '/', component: AppHome },
   { path: '/about', component: HelloWorld },
+  { path: '/books', component: BookIndex },
+  { path: '/book_create', component: BookCreate },
 ]
 
 

@@ -9,6 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
     </h1>
     <div>
       <router-link to="/" class="btn btn-link">Go to Home</router-link>
+      <router-link to="/books" class="btn btn-link">Books</router-link>
       <router-link to="/about" class="btn btn-link">About</router-link>
     </div>
     <div>
