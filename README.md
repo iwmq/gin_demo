@@ -1,3 +1,15 @@
+A toy project for playing with go language and gin framework.
+
+
+How to run?
+---
+In the gin_frontend directory, run: `npm run dev`.
+
+In the gin_backend directory, run: `make`,
+
+Then open a browser and enter `http://localhost:8080`.
+
+
 How to upgrade?
 ---
 To upgrade `gin`, run:
