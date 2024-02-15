@@ -28,10 +28,6 @@ func main() {
 
 	books := r.Group("/books")
 	{
-		books.GET("/", controllers.BookList())
-		books.GET("/new", controllers.BookNew())
-		books.GET("/show/:id", controllers.BookShow())
-		books.GET("/edit/:id", controllers.BookEdit())
 		books.GET("/api", controllers.GetAllAPI())
 		books.POST("/api", controllers.CreateBookAPI())
 		books.GET("/api/:id", controllers.DetailBookAPI())
