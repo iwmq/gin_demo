@@ -10,6 +10,11 @@ In the gin_backend directory, run: `make`,
 Then open a browser and enter `http://localhost:8080`.
 
 
+How to run unittests?
+---
+In the gin_backend directory, run: `go test ./...`
+
+
 How to upgrade?
 ---
 To upgrade `gin`, run:
@@ -30,6 +35,7 @@ Run the following commands:
 go env -w GO111MODULE=on
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
+
 
 Next step
 ---
