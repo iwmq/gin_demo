@@ -92,7 +92,7 @@ func UpdateBookAPI() gin.HandlerFunc {
 		}
 
 		// Update book
-		models.DB.Model(&book).Update(input)
+		models.DB.Model(&book).Updates(input)
 		c.JSON(http.StatusOK, gin.H{
 			"data": book,
 		})
