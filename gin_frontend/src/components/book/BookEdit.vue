@@ -1,46 +1,47 @@
 <template>
-    <div class="flex flex-col gap-4">
-        <label class="form-control w-full max-w-xs">
-            <div class="label">
-                <span class="label-text">Book Title?</span>
-            </div>
-            <input
-                type="text"
-                placeholder="Type here"
-                class="input input-bordered input-info w-full max-w-xs"
-                v-model="book_data.title"
-            />
-        </label>
-        <label class="form-control w-full max-w-xs">
-            <div class="label">
-                <span class="label-text">Author Name?</span>
-            </div>
-            <input
-                type="text"
-                placeholder="Type here"
-                class="input input-bordered input-info w-full max-w-xs"
-                v-model="book_data.author"
-            />
-        </label>
-        <button
-            class="btn btn-warning w-full max-w-xs"
-            :disabled="!data_valid"
-            @click="update_book"
-        >
-            Update
-        </button>
-        <button
-            class="btn btn-error w-full max-w-xs"
-            @click="delete_book"
-        >
-            Delete
-        </button>
-        <router-link
-            class="btn btn-neutral w-full max-w-xs"
-            to="/books"
-        >
-            Return
-        </router-link>
+    <div class="w-full md:w-1/2 flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+            <label class="input w-full">
+                <span class="label">Book Title?</span>
+                <input
+                    type="text"
+                    placeholder="Book Title?"
+                    v-model="book_data.title"
+                />
+            </label>
+            <label class="input w-full">
+                <span class="label">Author Name?</span>
+                <input
+                    type="text"
+                    placeholder="Author Name?"
+                    v-model="book_data.author"
+                />
+            </label>
+        </div>
+
+        <div class="flex flex-row gap-4">
+            <button
+                class="btn btn-warning"
+                :disabled="!data_valid"
+                @click="update_book"
+            >
+                Update
+            </button>
+
+            <button
+                class="btn btn-error"
+                @click="delete_book"
+            >
+                Delete
+            </button>
+
+            <router-link
+                class="btn btn-neutral"
+                to="/books"
+            >
+                Return
+            </router-link>
+        </div>
     </div>
 </template>
 

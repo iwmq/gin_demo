@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="b in books">
+                <tr v-for="b in books" :key="b.id">
                     <td>{{ b.title }}</td>
                     <td>{{ b.author }}</td>
                     <td>
