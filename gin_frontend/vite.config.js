@@ -19,6 +19,11 @@ export default defineConfig({
     rollupOptions: {
       // overwrite default .html entry
       input: './src/main.js',
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]',
+      },
     },
   },
   server: {
