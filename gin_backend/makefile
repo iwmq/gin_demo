@@ -3,4 +3,4 @@ dev:
 prod:
 	DEVELOP=false go run httpd/main.go
 collect:
-	cp -r ../gin_frontend/dist/assets/* assets/
+	cd ../gin_frontend && npm run build && cd ../gin_backend && cp -r ../gin_frontend/dist/assets/* assets/
